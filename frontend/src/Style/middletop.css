@@ -1,0 +1,13 @@
+.container-fluid{
+    background-color: skyblue;
+}
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    transition: all 0.5s ease-in-out;
+}
+.text-muted footer{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

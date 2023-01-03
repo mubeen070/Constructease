@@ -1,0 +1,108 @@
+
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 30px 50px 20px 50px;
+    box-sizing: border-box;
+  }
+  .logo {
+    font-size: 30px;
+    text-transform: uppercase;
+  }
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  li {
+    font-size: 14px;
+    margin-left: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+  }
+  .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 80%;
+    height: 10%;
+    margin: 50px auto;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .card {
+    background-color: cyan;
+    width: 25%;
+    height: 40%;
+    border-radius: 30px;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    background-image: linear-gradient(to top,rgba(5, 0, 50, 0.895),rgba(67, 0, 0, 0.649));
+    transition: all 0.5s ease-in-out;
+  }
+  .cardd-img {
+    margin-top: 5vw;
+  }
+  img {
+    height: 7rem;
+    width: 7rem;
+  }
+  .cardd-header {
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-transform: capitalize;
+    color: white;
+    margin: 30px 0;
+  }
+  p {
+    font-size: 1rem;
+    text-align: center;
+    padding: 10px;
+    color: whitesmoke;
+    margin: 8px 0;
+    flex-wrap: wrap;
+  }
+  .price {
+    font-size: 25px;
+    color: red;
+  }
+  span {
+    font-size: 15px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .cardd:hover {
+    transform: scale(1);
+    cursor: pointer;
+  }
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 130px;
+    height: 35px;
+    font-size: 14px;
+    border-radius: 35px;
+   }
+  .btn:hover{
+    transform: scale(1.1);
+    background-color: black ;
+  }

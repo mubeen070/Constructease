@@ -1,0 +1,39 @@
+.main{
+  width: 100%;
+  height: 100%;
+}
+.signupmain {
+  height: 90vh;
+  width: 30vw;
+  margin: 0 auto;
+}
+.button {
+  padding: 10px;
+  color: white;
+}
+h1 {
+  display: flex;
+  padding-top: 50px;
+  justify-content: center;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: solid;
+}
+h4 {
+  text-align: center;
+  padding-top: 3vh ;
+  padding-bottom: 3vh ;
+
+}
+.d5 {
+  padding-top: 2vh;
+}
+h1, h4{
+  font-family: "Times New Roman", Times, serif;
+}
+.d5{
+  color: white;
+}
+h2{
+  font-size: 17px ;
+}

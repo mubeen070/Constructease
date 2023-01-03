@@ -1,0 +1,36 @@
+
+.container3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 50%;
+  padding-top: 0 auto;
+  margin-top: 0 auto;
+}
+.main{
+  margin-top: 2rem;
+  margin-bottom: 0;
+  padding: 0 auto;
+}
+.card{
+  background-color: cyan;
+  width: 25%;
+  height: 40%;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(0.9);
+  background-image: linear-gradient(to top,rgba(5, 0, 50, 0.895),rgba(67, 0, 0, 0.649));
+  transition: all 0.5s ease-in-out;
+}
+.img{
+width: 100px;
+  height: 100px;
+}
+.btn{
+height: 35px;
+width: 115px;
+}

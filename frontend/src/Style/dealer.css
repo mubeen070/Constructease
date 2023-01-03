@@ -1,0 +1,36 @@
+.main{
+  height: 100%;
+  width: 100%;
+}
+.container2{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  padding-bottom: 73px;
+
+}
+.card {
+  /* background-image: linear-gradient(to top,rgba(6, 6, 6, 0.748),#001d487d); */
+  padding: 2rem;
+  width: 24rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(.8);
+  transition: all 0.9s ease-in-out;
+}
+.card:hover{
+  background-color: lightslategrey;
+    transform: scale(1);
+}
+
+h2{
+  text-align: center;
+  color:whitesmoke;
+  font-weight: 500;
+}
+.about-section {
+  padding-left: 10px;
+  text-align: center;
+  color: white;
+}

@@ -1,0 +1,15 @@
+.adminlist {
+    display: flex;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+        flex-direction: column;
+}
+.adminlist li{
+    font-size: 1rem;
+}
+.container-lg{
+padding:0;
+}
