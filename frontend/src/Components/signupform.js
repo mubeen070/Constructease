@@ -1,57 +1,27 @@
 import "../Style/signupform.css";
 import React from "react";
-// import { useNavigate } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
+import { signupData } from "../Service/api";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+// const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+// const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const SignUp = () => {
-  const userRef = useRef();
-  const errorRef = useRef();
 
-  
-  // const navigate = useNavigate();
-  const [firstN, setFirstN] = useState("");
-  const [lastN, setLastN] = useState("");
-  const [email, setEmail] = useState("");
-  const [confirmE, setConfrimE] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordC, setCPaswword] = useState("");
+  const [userData, setuserData] = useState({
+    uName: "", email: "", password: "", contactNo: "", dobirth: ""
+  })
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log("Submitted.");
-  };
+  const { uName, email, password, contactNo, dobirth } = userData;
 
   const handleChange = (e) => {
-    if (e.currentTarget.name === "fname") {
-      const newFirstN = e.currentTarget.value;
-      setFirstN(newFirstN);
-      console.log(e.currentTarget.value);
-    } else if (e.currentTarget.name === "lname") {
-      const newLastN = e.currentTarget.value;
-      setLastN(newLastN);
-      console.log(e.currentTarget.value);
-    } else if (e.currentTarget.name === "email") {
-      const newEmail = e.currentTarget.value;
-      setEmail(newEmail);
-      console.log(e.currentTarget.value);
-    } else if (e.currentTarget.name === "cEmail") {
-      const newConfrimE = e.currentTarget.value;
-      setConfrimE(newConfrimE);
-      console.log(e.currentTarget.value);
-    } else if (e.currentTarget.name === "password") {
-      const newPassword = e.currentTarget.value;
-      setPassword(newPassword);
-      console.log(e.currentTarget.value);
-    } else if (e.currentTarget.name === "cPassword") {
-      const newCPassword = e.currentTarget.value;
-      setCPaswword(newCPassword);
-      console.log(e.currentTarget.value);
-    }
+    setuserData({ ...userData, [e.target.name]: [e.target.value] })
+    console.log(userData)
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await signupData(userData)
+  }
 
   return (
     <div className="container">
@@ -59,32 +29,20 @@ const SignUp = () => {
         <h1 style={{ color: "black" }}>Constructease</h1>
         <h4 style={{ color: "black" }}>Create Account</h4>
         <div className="col-lg-5 col-md-6 col-sm-3">
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="form-floating mb-1">
               <input
                 type="text"
                 onChange={handleChange}
-                value={firstN}
-                name="fname"
+                value={uName}
+                name="uName"
                 class="containers form-control"
                 id="floatingInput"
-                placeholder="First Name"
+                placeholder="Name"
               />
-              <label for="floatingInput">First Name</label>
+              <label for="floatingInput">Name</label>
             </div>
-            <div className="form-floating mb-1">
-              <input
-                type="text"
-                onChange={handleChange}
-                value={lastN}
-                name="lname"
-                class="containers form-control"
-                id="floatingInput"
-                placeholder="Last Name"
-                required
-              />
-              <label for="floatingInput">Last Name</label>
-            </div>
+
 
             <div className="form-floating mb-1">
               <input
@@ -94,22 +52,10 @@ const SignUp = () => {
                 name="email"
                 className="containers form-control"
                 id="floatingInput"
-                placeholder="Last Name"
+                placeholder="Email"
                 required
               />
               <label for="floatingInput">Email</label>
-            </div>
-            <div className="form-floating mb-1">
-              <input
-                type="email"
-                onChange={handleChange}
-                value={confirmE}
-                name="cEmail"
-                className="containers form-control"
-                id="floatingPassword"
-                placeholder="Email"
-              />
-              <label for="floatingInput">Confirm Email</label>
             </div>
             <div className="form-floating mb-1">
               <input
@@ -125,15 +71,29 @@ const SignUp = () => {
             </div>
             <div className="form-floating mb-1">
               <input
-                type="password"
+                type="tel"
                 onChange={handleChange}
-                value={passwordC}
-                name="cPassword"
+                value={contactNo}
+                name="contactNo"
                 className="containers form-control"
-                id="floatingPassword"
-                placeholder="Password"
+                id="floatingInput"
+                placeholder="Contact Number"
+                required
               />
-              <label for="floatingPassword">Confirm Password</label>
+              <label for="floatingInput">Contact Number</label>
+            </div>
+            <div className="form-floating mb-1">
+              <input
+                type="date"
+                onChange={handleChange}
+                value={dobirth}
+                name="doBirth"
+                className="containers form-control"
+                id="floatingInput"
+                placeholder="Date of birth"
+                required
+              />
+              <label for="floatingInput">Date of Birth</label>
             </div>
             <div
               className="d5 d-flex justify-content-center pb-4"
@@ -141,15 +101,9 @@ const SignUp = () => {
             >
             </div>
             <div className="d-flex justify-content-center pb-5">
-              <button className="btn btn-primary ms-2" type="submit">
+              <button className="btn btn-primary ms-2" type="submit" onClick={(e) => handleSubmit(e)}>
                 Sign Up
               </button>
-              {/* <button
-              className="btn btn-primary ms-3 "
-              onClick={() => navigate(-1)}
-            >
-              Goto Login
-            </button> */}
             </div>
           </form>
         </div>

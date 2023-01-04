@@ -10,27 +10,27 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 
-// const { MongoClient, ServerApiVersion } = require('mongodb');
-mongoose.set("strictQuery", false);
+
+mongoose.set('strictQuery', false);
 const url =
-  "mongodb+srv://mubeen070:Tucky32145@cluster0.ytdjjmc.mongodb.net/?retryWrites=true&w=majority";
+"mongodb+srv://mubeen070:Tucky32145@cluster0.ytdjjmc.mongodb.net/?retryWrites=true&w=majority";
 mongoose
   .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("connected to db"));
 
 const app = express();
- 
+app.listen(5000);
+
 app.use(cors());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(cors());
-app.use("/", home);
-app.use("/", signup);
-app.use("/", login);
-app.use("/equipment", equipment);
-app.use("/material", material);
-app.use("/", cart);
-app.use("/", about);
-app.listen(5000);
+// app.use("/", home);
+app.use("/signup", signup);
+// app.use("/", login);
+// app.use("/equipment", equipment);
+// app.use("/material", material);
+// app.use("/", cart);
+// app.use("/", about);
+
 console.log("Listening...");

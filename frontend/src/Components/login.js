@@ -1,23 +1,38 @@
 import "../Style/login.css";
 import React from "react";
 import { useState, useEffect, useRef } from "react";
+import jwt_decode from "jwt-decode"
 // import { useNavigate } from "react-router-dom";
 const Login = () => {
   // const navigate = useNavigate();
+  const [user, setuser] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const goRed = useRef("");
-  // const red = () => {
-  //   goRed.current.style.backgroundColor = 'red'
-  // }
+  function handlecallbackResponse(Response) {
+    console.log("encoded jwt id token " + Response.credential)
+    const userData = jwt_decode(Response.credential)
+    console.log(userData)
+    document.getElementById("loginContainer").hidden = true;
+  }
 
-  const count = useRef(0);
   useEffect(() => {
-    count.current = count.current + 1;
-    console.log(count.current);
-  });
+    /*global google*/
+    google.accounts.id.initialize({
+      client_id: "1023609669270-pj8v0q07890tmuf412gjijllo1gfa9hl.apps.googleusercontent.com",
+      callback: handlecallbackResponse,
+    })
+    google.accounts.id.renderButton(
+      document.getElementById("signIn"),
+      { theme: "outline", size: "medium", borderRadius: "10px" }
+    )
+    console.log("render count")
+  }, []);
 
+  function handleSignout(eve) {
+    setuser({});
+    document.getElementById("loginContainer").hidden = false;
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -37,18 +52,12 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      {/* <div>
-        <h1>
-          <button onClick={()=>navigate("/signup")}>Go to Signup</button >
-        </h1>
-      <h2>Render Count: {count.current}</h2>
-      </div> */}
+    <div className="container" style={{ display: "flex", justifyContent: 'center', alignItems: 'center' }}>
       <div className="row justify-content-center align-items-center">
-        <h1 style={{ color: "black" }}>Constructease</h1>
-        <h4 style={{ color: "black" }}>Login</h4>
         <div className="col-lg-5 col-md-6 col-sm-3">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} id="loginContainer">
+            <h1 style={{ color: "black" }}>Constructease</h1>
+            <h4 style={{ color: "black" }}>Login</h4>
             <div className="form-floating mb-1">
               <input
                 type="email"
@@ -58,7 +67,7 @@ const Login = () => {
                 className="containers form-control"
                 id="floatingPassword"
                 placeholder="Email"
-                // ref={goRed}
+              // ref={goRed}
               />
               <label for="floatingInput">Email</label>
             </div>
@@ -85,15 +94,30 @@ const Login = () => {
               Forgot <a href="/">password?</a>
             </p>
             <div className="d-flex justify-content-center">
-              <button className="btn btn-primary" type="submit">
+              <button className="btn btn-primary btn-sm mx-4" type="submit" style={{ height: "33px" }}>
                 Login
               </button>
 
               {/* <button className="btn btn-danger ms-2" onClick={red}>
               Go Red
             </button> */}
+
+              <div id="signIn" ></div>
+
             </div>
           </form>
+
+          {
+            user &&
+            <div>
+              <img src={user.picture}></img>
+              <h3>{user.name}</h3>
+            </div>
+          }
+          {
+            Object.keys(user).length != 0 &&
+            <button className="btn btn-info btn-sm" onClick={(e) => handleSignout(e)}> Sign out</button>
+          }
         </div>
       </div>
     </div>

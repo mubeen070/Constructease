@@ -18,7 +18,7 @@ function App() {
         <Router>
           <NavBar />
 
-          {/* <div className="main">
+          <div className="main">
             <CartProvider>
               <Routes>               
                 <Route active exact path="/" element={<Home />} />
@@ -30,9 +30,9 @@ function App() {
                 <Route exact path="/cart" element={<Cart />} />
               </Routes>
             </CartProvider>
-          </div> */}
+          </div>
         </Router>
-        <Admin />
+        {/* <Admin /> */}
       </div>
     </>
   );
