@@ -4,11 +4,10 @@ const userSchema = mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    contactNo: String,
-    dofBirth: String
+    contactNo: String
 });
 
 const userModel = mongoose.model('UserModel', userSchema);
-
+ 
 export default userModel;
 

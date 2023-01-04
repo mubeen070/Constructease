@@ -1,18 +1,15 @@
 import "../Style/signupform.css";
 import React from "react";
 import { useState } from "react";
-import { signupData } from "../Service/api";
-
-// const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-// const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+import { signupData } from "../Service/api.js";
 
 const SignUp = () => {
 
   const [userData, setuserData] = useState({
-    uName: "", email: "", password: "", contactNo: "", dobirth: ""
+    uName: "", email: "", password: "", contactNo: ""
   })
 
-  const { uName, email, password, contactNo, dobirth } = userData;
+  const { uName, email, password, contactNo } = userData;
 
   const handleChange = (e) => {
     setuserData({ ...userData, [e.target.name]: [e.target.value] })
@@ -20,8 +17,14 @@ const SignUp = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signupData(userData)
+    try {
+      await signupData(userData)
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
+
 
   return (
     <div className="container">
@@ -66,6 +69,9 @@ const SignUp = () => {
                 className="containers form-control"
                 id="floatingPassword"
                 placeholder="Password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                required
               />
               <label for="floatingPassword">Password</label>
             </div>
@@ -81,19 +87,6 @@ const SignUp = () => {
                 required
               />
               <label for="floatingInput">Contact Number</label>
-            </div>
-            <div className="form-floating mb-1">
-              <input
-                type="date"
-                onChange={handleChange}
-                value={dobirth}
-                name="doBirth"
-                className="containers form-control"
-                id="floatingInput"
-                placeholder="Date of birth"
-                required
-              />
-              <label for="floatingInput">Date of Birth</label>
             </div>
             <div
               className="d5 d-flex justify-content-center pb-4"

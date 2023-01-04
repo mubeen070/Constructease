@@ -52,7 +52,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container" style={{ display: "flex", justifyContent: 'center', alignItems: 'center' }}>
+    <div className="container">
       <div className="row justify-content-center align-items-center">
         <div className="col-lg-5 col-md-6 col-sm-3">
           <form onSubmit={handleSubmit} id="loginContainer">
@@ -94,7 +94,7 @@ const Login = () => {
               Forgot <a href="/">password?</a>
             </p>
             <div className="d-flex justify-content-center">
-              <button className="btn btn-primary btn-sm mx-4" type="submit" style={{ height: "33px" }}>
+              <button className="btn btn-primary btn-sm mx-2" type="submit" style={{ height: "33px" }}>
                 Login
               </button>
 
@@ -114,10 +114,10 @@ const Login = () => {
               <h3>{user.name}</h3>
             </div>
           }
-          {
+          {/* {
             Object.keys(user).length != 0 &&
             <button className="btn btn-info btn-sm" onClick={(e) => handleSignout(e)}> Sign out</button>
-          }
+          } */}
         </div>
       </div>
     </div>

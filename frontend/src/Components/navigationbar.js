@@ -18,8 +18,7 @@ const NavBar = () => {
       </h3>
       <nav ref={navRef}>
         <Link to="/">Home</Link>
-        <Link to="/equipment">Equipment</Link>
-        <Link to="/material">Marerial</Link>
+        <Link to="/products">Products</Link>
         <Link to="/dealer">About us</Link>
         <Link className="align-right" to="/cart">
           <i class="bi bi-cart"></i>Cart
@@ -30,6 +29,7 @@ const NavBar = () => {
         <Link className="align-right" to="/login">
           Login
         </Link>
+        <Link to="/adminview">Admin Side</Link>
         <button className="nav-btn nav-close-btn" onClick={showNavbar}>
           <FaTimes />
         </button>
