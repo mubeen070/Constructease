@@ -19,6 +19,9 @@ const SignUp = () => {
     e.preventDefault();
     try {
       await signupData(userData)
+      setuserData({
+        uName: "", email: "", password: "", contactNo: ""
+      })
     }
     catch (err) {
       console.log(err);

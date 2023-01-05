@@ -5,7 +5,7 @@ import { useCart } from "react-use-cart";
 const ItemCard = (props) => {
   const { addItem } = useCart();
   return (
-        <div className="card" style={{margin:"0", padding:"0"}}key={props.id}>
+        <div className="card" style={{margin:"0", padding:"0"}} key={props.id}>
           <div className="cardd-img">
             <img src={props.thumb} alt={props.pname} />
           </div>
@@ -19,7 +19,7 @@ const ItemCard = (props) => {
             <button
               className="btn"
               style={{ color: "lightgray" }}
-              onClick={() => addItem(props.item)}
+              onClick={() => addItem(props.id)}
             >
               Add to cart
             </button>

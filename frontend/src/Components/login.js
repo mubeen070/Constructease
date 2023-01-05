@@ -1,32 +1,34 @@
 import "../Style/login.css";
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode"
-// import { useNavigate } from "react-router-dom";
-const Login = () => {
-  // const navigate = useNavigate();
-  const [user, setuser] = useState();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  function handlecallbackResponse(Response) {
-    console.log("encoded jwt id token " + Response.credential)
-    const userData = jwt_decode(Response.credential)
-    console.log(userData)
+const CLIENT_ID = "1023609669270-pj8v0q07890tmuf412gjijllo1gfa9hl.apps.googleusercontent.com"
+const Login = () => {
+
+  const [user, setuser] = useState({
+    email: "", password: ""
+  });
+  const { email, password } = user;
+
+  function handlecallbackResponse(response) {
+    console.log("encoded jwt id token " + response.credential);
+    const userObj = jwt_decode(response.credential);
+    setuser(userObj);
     document.getElementById("loginContainer").hidden = true;
   }
 
   useEffect(() => {
     /*global google*/
     google.accounts.id.initialize({
-      client_id: "1023609669270-pj8v0q07890tmuf412gjijllo1gfa9hl.apps.googleusercontent.com",
+      client_id: CLIENT_ID,
       callback: handlecallbackResponse,
     })
     google.accounts.id.renderButton(
       document.getElementById("signIn"),
       { theme: "outline", size: "medium", borderRadius: "10px" }
     )
-    console.log("render count")
+    google.accounts.id.prompt();
   }, []);
 
   function handleSignout(eve) {
@@ -40,15 +42,8 @@ const Login = () => {
   };
 
   const handleChange = (e) => {
-    if (e.currentTarget.name === "Email") {
-      const newEmail = e.currentTarget.value;
-      setEmail(newEmail);
-      console.log(e.currentTarget.value);
-    } else if (e.currentTarget.name === "Password") {
-      const newPassword = e.currentTarget.value;
-      setPassword(newPassword);
-      console.log(e.currentTarget.value);
-    }
+    setuser({ ...user, [e.target.name]: [e.target.value] })
+    console.log(user)
   };
 
   return (
@@ -62,12 +57,12 @@ const Login = () => {
               <input
                 type="email"
                 value={email}
-                name="Email"
+                name="email"
                 onChange={handleChange}
                 className="containers form-control"
                 id="floatingPassword"
                 placeholder="Email"
-              // ref={goRed}
+                required
               />
               <label for="floatingInput">Email</label>
             </div>
@@ -75,7 +70,7 @@ const Login = () => {
               <input
                 type="password"
                 value={password}
-                name="Password"
+                name="password"
                 onChange={handleChange}
                 className="containers form-control"
                 id="floatingPassword"
@@ -98,26 +93,24 @@ const Login = () => {
                 Login
               </button>
 
-              {/* <button className="btn btn-danger ms-2" onClick={red}>
-              Go Red
-            </button> */}
-
               <div id="signIn" ></div>
 
             </div>
           </form>
+          <div className="pt-5" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-          {
-            user &&
-            <div>
-              <img src={user.picture}></img>
-              <h3>{user.name}</h3>
-            </div>
-          }
-          {/* {
-            Object.keys(user).length != 0 &&
-            <button className="btn btn-info btn-sm" onClick={(e) => handleSignout(e)}> Sign out</button>
-          } */}
+            {
+              user &&
+              <div className="pt-5" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <img src={user.picture} alt="profile"></img>
+                <h3>{user.email}</h3>
+              </div>
+            }
+            {
+              Object.keys(user).length !== 0 &&
+              <button className="btn btn-info btn-sm" onClick={(e) => handleSignout(e)} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}> Sign out</button>
+            }
+          </div>
         </div>
       </div>
     </div>

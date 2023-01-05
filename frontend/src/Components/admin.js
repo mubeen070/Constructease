@@ -1,7 +1,7 @@
 import React from "react";
 import "../Style/admin.css";
 import { useState, useEffect } from "react";
-import { getproductData,productData } from "../Service/api.js";
+import { getproductData, productData } from "../Service/api.js";
 const Admin = () => {
 
   const [productsData, setproductsData] = useState([]);
@@ -15,6 +15,7 @@ const Admin = () => {
   const getproductDetails = async () => {
     const result = await getproductData();
     setproductsData(result.data);
+    console.log(result.data)
   }
 
   const [prodData, setprodData] = useState({
@@ -37,8 +38,8 @@ const Admin = () => {
   }
 
   return (
-    <div className="container-fluid" style={{ backgroundColor: "red" }}>
-      <h1>Manage Items</h1>
+    <div className="container-fluid" >
+      <h1 style={{ color: "black", marginBottom: "5rem" }}>Manage Items</h1>
       <div
         className="row"
       >
@@ -99,24 +100,29 @@ const Admin = () => {
 
         <div className="col-lg-12">
 
-          <div className="container" style={{ padding: "4rem", backgroundColor: "gray" }}>
+          <div className="container" style={{ padding: "4rem", backgroundColor: "lightgray", border: "1px solid black", marginBottom: "20px" }}>
 
             <table className="table mx-1" style={{ border: "1px solid black" }}>
-              <tbody >
+              <thead>
+
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
                 <th>Image</th>
+                <th>Operation</th>
+              </thead>
+              <tbody >
                 {
                   productsData.map((details) => {
-                    <tr>
+                    return (<tr>
                       <td>{details.prodName}</td>
                       <td>{details.prodDesc}</td>
                       <td>{details.prodPrice}</td>
-                      <td><img src={details.prodImgUrl} alt="Product Image"></img></td>
+                      <td><img src={details.prodImgUrl} alt="Product"></img></td>
+                      <td><button className="btn btn-danger">Delete</button></td>
                     </tr>
-                  }
-                  )};
+                   ) }
+                  )}
               </tbody>
             </table>
           </div>

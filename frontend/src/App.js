@@ -9,7 +9,7 @@ import { CartProvider } from "react-use-cart";
 import Cart from "./Components/Cart";
 import "./Style/App.css";
 import Admin from "./Components/admin";
-import Products from "./Components/data";
+import Products from "./Components/products";
 function App() {
   return (  
     <>
@@ -20,7 +20,7 @@ function App() {
           <div className="main">
             <CartProvider>
               <Routes>               
-                <Route active exact path="/" element={<Home />} />
+                <Route exact path="/" element={<Home />} />
                 <Route exact path="/products" element={<Products />} />
                 <Route exact path="/dealer" element={<DealerInfo />} />
                 <Route exact path="/signup" element={<SignUp />} />

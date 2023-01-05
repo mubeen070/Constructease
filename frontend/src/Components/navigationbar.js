@@ -1,6 +1,5 @@
 import React from "react";
 import { useRef } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FaBars, FaTimes, FaHammer } from "react-icons/fa";
 import "../Style/navbar.css";
 import { Link } from "react-router-dom";

@@ -1,14 +1,15 @@
 import product from "../models/productsSchema.js";
 
 
-export const showProducts = (async (req, res) => {
+export const showProducts = async (req, res) => {
     try {
-        const products = await product.find();
-        res.json(products);
+        console.log("api reached!")
+        const viewProducts = await product.find();
+        res.json(viewProducts); 
     } catch (error) {
         res.send("Not found")
     }
-})
+}
 export const products = async (req, res) => {
     console.log("post api reached")
     const result = req.body;
@@ -50,4 +51,4 @@ export const products = async (req, res) => {
 
     }
 }
-
+ 
