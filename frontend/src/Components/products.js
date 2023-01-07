@@ -13,15 +13,19 @@ const Products = () => {
 
 
   const getproductDetails = async () => {
-    const result = await getproductData();
-    setproductsData(result.data);
+   try {
+     const result = await getproductData();
+     setproductsData(result.data);
+   } catch (error) {
+    console.log(error);
+   }
   }
   return (
     <div className="container">
       <h1 className="text-dark">Equipments</h1>
 
       <div className="row" style={{ padding: "0", margin: "0" }}>
-        <div className="col-lg-4 col-sm-12 col-md-6" style={{ padding: "0", margin: "0" }}>
+        <div className="col-lg-12 col-sm-12 col-md-6" style={{ padding: "0", margin: "0" }}>
           {productsData.map((item, index) => (
             <ItemCard
               thumb={item.prodImgUrl}

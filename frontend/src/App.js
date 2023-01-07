@@ -4,6 +4,7 @@ import SignUp from "./Components/signupform";
 import NavBar from "./Components/navigationbar";
 import Home from "./Components/home";
 import DealerInfo from "./Components/dealerInfo";
+import EditUser from "./Components/editItem";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider } from "react-use-cart";
 import Cart from "./Components/Cart";
@@ -11,7 +12,7 @@ import "./Style/App.css";
 import Admin from "./Components/admin";
 import Products from "./Components/products";
 function App() {
-  return (  
+  return (
     <>
       <div className="app">
         <Router>
@@ -19,12 +20,13 @@ function App() {
 
           <div className="main">
             <CartProvider>
-              <Routes>               
+              <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/products" element={<Products />} />
                 <Route exact path="/dealer" element={<DealerInfo />} />
                 <Route exact path="/signup" element={<SignUp />} />
                 <Route exact path="/login" element={<Login />} />
+                <Route exact path="/edit/:id" element={<EditUser />} />
                 <Route exact path="/cart" element={<Cart />} />
                 <Route exact path="/adminview" element={<Admin />} />
               </Routes>

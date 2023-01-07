@@ -14,7 +14,7 @@ const ItemCard = (props) => {
             <p>{props.desc}</p>
             <p className="price">
               {props.price}
-              <span>{props.currency}</span>
+              <span>$</span>
             </p>
             <button
               className="btn"

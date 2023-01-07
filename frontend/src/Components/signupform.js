@@ -19,12 +19,16 @@ const SignUp = () => {
     e.preventDefault();
     try {
       await signupData(userData)
-      setuserData({
-        uName: "", email: "", password: "", contactNo: ""
+      .then(()=>{
+        setuserData({
+          uName: "", email: "", password: "", contactNo: ""
+        })
+        alert("Registration Successful!")
       })
     }
     catch (err) {
       console.log(err);
+      alert("Registration Failed!")
     }
   }
 

@@ -1,15 +1,22 @@
-.adminlist {
-    display: flex;
-    padding: 0;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    text-align: center;
-        flex-direction: column;
+.table th{
+    padding-left: 10px;
 }
-.adminlist li{
-    font-size: 1rem;
+.table-row button{
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-inline-start: 10px;
 }
-.container-lg{
-padding:0;
+.table span {
+    font-size: 15px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .table td{
+    padding: 10px;
+  }
+.table i{
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    margin: 20px;
 }

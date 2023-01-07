@@ -13,14 +13,16 @@ mongoose
   .then(() => console.log("connected to db"));
 
 const app = express();
-app.use(cors({ origin: true, credentials: true }));
+app.listen(5000);
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors({ origin: true, credentials: true }));
 
 
 app.use("/signup", signup);
 app.use("/products", products);
 
-app.listen(5000);
+
+
 console.log("Listening...");
