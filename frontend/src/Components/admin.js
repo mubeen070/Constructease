@@ -16,6 +16,7 @@ const Admin = () => {
 
   useEffect(() => {
     getproductDetails();
+
   }, []);
 
 
@@ -23,6 +24,7 @@ const Admin = () => {
     try {
       const result = await getproductData();
       setproductsData(result.data);
+      document.getElementById("form").hidden = true;
     } catch (error) {
       console.log(error);
     }
@@ -49,85 +51,34 @@ const Admin = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteProductData(id)
-        .then(() => alert("Product deleted successfully!"));
+      if (window.confirm("Are you sure?") === true) {
+        await deleteProductData(id)
+          .then(() => alert("Product deleted successfully!"));
+      }
       getproductDetails();
     } catch (error) {
       console.log(error.message);
     }
   }
+  const openComp = () => {
+    document.getElementById("form").hidden = false;
+  }
+  const closeComp = () => {
+    document.getElementById("form").hidden = true;
+  }
+
   return (
     <div className="container-fluid" >
       <div
         className="row"
       >
-        <form>
-          <h1 className="text-dark">Add Product</h1>
-          <div className="container" style={{ width: "30rem" }}>
-            <div className="form-floating mb-1">
-              <input
-                type="text"
-                name="prodName"
-                value={prodName}
-                onChange={(e) => setProdName(e.target.value)}
-                class="containers form-control"
-                id="floatingInput"
-                placeholder="Product Name"
-                required
-              />
-              <label for="floatingInput">Name</label>
-            </div>
-            <div className="form-floating mb-1">
-              <input
-                type="text"
-                name="prodDesc"
-                value={prodDesc}
-                onChange={(e) => setProdDesc(e.target.value)}
-                class="containers form-control"
-                id="floatingInput"
-                placeholder="Product Description"
-              />
-              <label for="floatingInput">Description</label>
-            </div>
-            <div className="form-floating mb-1">
-              <input
-                type="number"
-                name="prodPrice"
-                value={prodPrice}
-                onChange={(e) => setProdPrice(e.target.value)}
-                class="containers form-control"
-                id="floatingInput"
-                placeholder="Product Price"
-                required
-              />
-              <label for="floatingInput">Price $</label>
-            </div>
-            <div className="form-floating mb-1">
-              <input
-                type="text"
-                name="prodImgUrl"
-                value={prodImgUrl}
-                onChange={(e) => setProdImgUrl(e.target.value)}
-                class="containers form-control"
-                id="floatingInput"
-                placeholder="Image Url"
-                required
-              />
-              <label for="floatingInput">Image URL</label>
-
-            </div>
-
-            <button className="btn btn-primary my-4 " style={{ right: "0" }} onClick={handleSubmit}>Add</button>
-
-          </div>
-        </form>
-
-
-        <div className="col-lg-12">
-
-          <div className="container" style={{ padding: "4rem", border: "1px solid black", marginBottom: "20px" }}>
-
-            <table className="table" style={{ border: "0px solid black" }}>
+        <div className="col-lg-12 col-sm-12">
+          <div className="container" style={{
+            padding: "1rem",
+            border: '1px solid black'
+          }}>
+            <h1 className="title">Manage Products</h1>
+            <table className="table" >
               <th>Name</th>
               <th>Description</th>
               <th>Price</th>
@@ -139,7 +90,7 @@ const Admin = () => {
                     return <tr className="table-row" key={index} >
                       <td>{details.prodName}</td>
                       <td>{details.prodDesc}</td>
-                      <td>{details.prodPrice}
+                      <td className="price">{details.prodPrice}
                         <span>$</span></td>
                       <td><img src={details.prodImgUrl} alt="Product"></img></td>
                       <td>
@@ -153,9 +104,71 @@ const Admin = () => {
                   )}
               </tbody>
             </table>
+            <button type="button" className="btn btn-primary" style={{}} onClick={() => openComp()}>Add New</button>
+
+            <form id="form" style={{ bottom: "10rem" }}>
+              <div className="container modal-body" style={{ width: "30rem" }}>
+                <div className="form-floating mb-1">
+                  <input
+                    type="text"
+                    name="prodName"
+                    value={prodName}
+                    onChange={(e) => setProdName(e.target.value)}
+                    class="containers form-control"
+                    id="floatingInput"
+                    placeholder="Product Name"
+                    required
+                  />
+                  <label for="floatingInput">Name</label>
+                </div>
+                <div className="form-floating mb-1">
+                  <input
+                    type="text"
+                    name="prodDesc"
+                    value={prodDesc}
+                    onChange={(e) => setProdDesc(e.target.value)}
+                    class="containers form-control"
+                    id="floatingInput"
+                    placeholder="Product Description"
+                    required
+                  />
+                  <label for="floatingInput">Description</label>
+                </div>
+                <div className="form-floating mb-1">
+                  <input
+                    type="number"
+                    name="prodPrice"
+                    value={prodPrice}
+                    onChange={(e) => setProdPrice(e.target.value)}
+                    class="containers form-control"
+                    id="floatingInput"
+                    placeholder="Product Price"
+                    required
+                  />
+                  <label for="floatingInput">Price $</label>
+                </div>
+                <div className="form-floating mb-1">
+                  <input
+                    type="text"
+                    name="prodImgUrl"
+                    value={prodImgUrl}
+                    onChange={(e) => setProdImgUrl(e.target.value)}
+                    class="containers form-control"
+                    id="floatingInput"
+                    placeholder="Image Url"
+                    required
+                  />
+                  <label for="floatingInput">Image URL</label>
+
+                </div>
+
+                <button className="btn btn-primary my-4" style={{ left: "16rem" }} onClick={handleSubmit}>Add</button>
+                <button className="btn btn-primary" style={{ left: "6rem", bottom: "3.7rem" }} onClick={() => closeComp()}>Close</button>
+              </div>
+
+            </form>
           </div>
         </div>
-
       </div>
     </div>
 

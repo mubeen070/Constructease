@@ -26,9 +26,9 @@ function App() {
                 <Route exact path="/dealer" element={<DealerInfo />} />
                 <Route exact path="/signup" element={<SignUp />} />
                 <Route exact path="/login" element={<Login />} />
-                <Route exact path="/edit/:id" element={<EditUser />} />
                 <Route exact path="/cart" element={<Cart />} />
                 <Route exact path="/adminview" element={<Admin />} />
+                <Route exact path="/edit/:id" element={<EditUser />} />
               </Routes>
             </CartProvider>
           </div>

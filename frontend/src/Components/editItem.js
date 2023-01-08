@@ -33,8 +33,11 @@ const EditUser = () => {
 
 
     const editUserDetails = async () => {
-        const response = await editProduct(id, productsData);
-        navigate("/adminview");
+        await editProduct(id, productsData)
+            .then(() => {
+                alert("Success!")
+                navigate("/adminview");
+            });
     }
 
     return (
