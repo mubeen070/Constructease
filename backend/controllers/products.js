@@ -10,6 +10,15 @@ export const showProducts = async (req, res) => {
     });
 };
 
+export const getProdbyId = async (request, response) => {
+    try {
+        const prod = await product.findById(request.params.id);
+        response.status(200).json(prod);
+    } catch (error) {
+        response.status(404).json({ message: error.message })
+    }
+}
+
 export const products = async (req, res) => {
     const productDetails = req.body;
     console.log("Product details --->", productDetails);

@@ -19,10 +19,8 @@ app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors({ origin: true, credentials: true }));
 
-
 app.use("/signup", signup);
 app.use("/products", products);
-
 
 
 console.log("Listening...");

@@ -40,6 +40,7 @@ const Admin = () => {
           setProdImgUrl("");
           alert("Product added successfully!");
         })
+      getproductDetails();
     } catch (err) {
       console.log(err.message)
       alert("Product addition failed!");
@@ -50,6 +51,7 @@ const Admin = () => {
     try {
       await deleteProductData(id)
         .then(() => alert("Product deleted successfully!"));
+      getproductDetails();
     } catch (error) {
       console.log(error.message);
     }
@@ -141,8 +143,10 @@ const Admin = () => {
                         <span>$</span></td>
                       <td><img src={details.prodImgUrl} alt="Product"></img></td>
                       <td>
-                        <i class="bi bi-trash" onClick={() => handleDelete(details._id)}></i>
-                        <i class="bi bi-pencil-square" component={Link} to={`/edit/${details._id}`}></i>
+                        <i class="bi bi-trash" onClick={() => handleDelete(details._id)}>Delete</i>
+                        <Link to={`/edit/${details._id}`}>
+                          <i class="bi bi-pencil-square">Update</i>
+                        </Link>
                       </td>
                     </tr>
                   }

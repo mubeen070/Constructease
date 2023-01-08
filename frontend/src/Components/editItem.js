@@ -1,41 +1,51 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getproductData, editUser } from '../Service/api';
+import { getproductData, editProduct } from '../Service/api';
+
+
+const initialValue = {
+    prodName: '',
+    prodDesc: '',
+    prodPrice: '',
+    prodImgUrl: ''
+}
 
 const EditUser = () => {
 
-    const [productsData, setproductsData] = useState([]);
-    const [prodName, setProdName] = useState("");
-    const [prodDesc, setProdDesc] = useState("");
-    const [prodPrice, setProdPrice] = useState(0);
-    const [prodImgUrl, setProdImgUrl] = useState("");
+    const [productsData, setproductsData] = useState(initialValue);
+    const { prodName, prodDesc, prodPrice, prodImgUrl } = productsData;
     const { id } = useParams();
-
     let navigate = useNavigate();
 
     useEffect(() => {
         loadProdDetails();
     }, []);
 
-    async function loadProdDetails() {
+    const loadProdDetails = async () => {
         const response = await getproductData(id);
         setproductsData(response.data);
     }
 
+    const onValueChange = (e) => {
+        console.log(e.target.value);
+        setproductsData({ ...productsData, [e.target.name]: e.target.value })
+    }
+
+
     const editUserDetails = async () => {
-        const response = await editUser(id, productsData);
-        navigate('/adminview');
+        const response = await editProduct(id, productsData);
+        navigate("/adminview");
     }
 
     return (
-        <div className='container'>
+        <div className='container' style={{ width: "30rem" }}>
             <h4>Edit Information</h4>
             <div className="form-floating mb-1">
                 <input
                     type="text"
                     name="prodName"
                     value={prodName}
-                    onChange={(e) => setProdName(e.target.value)}
+                    onChange={(e) => onValueChange(e)}
                     class="containers form-control"
                     id="floatingInput"
                     placeholder="Product Name"
@@ -48,7 +58,7 @@ const EditUser = () => {
                     type="text"
                     name="prodDesc"
                     value={prodDesc}
-                    onChange={(e) => setProdDesc(e.target.value)}
+                    onChange={(e) => onValueChange(e)}
                     class="containers form-control"
                     id="floatingInput"
                     placeholder="Product Description"
@@ -60,7 +70,7 @@ const EditUser = () => {
                     type="number"
                     name="prodPrice"
                     value={prodPrice}
-                    onChange={(e) => setProdPrice(e.target.value)}
+                    onChange={(e) => onValueChange(e)}
                     class="containers form-control"
                     id="floatingInput"
                     placeholder="Product Price"
@@ -73,7 +83,7 @@ const EditUser = () => {
                     type="text"
                     name="prodImgUrl"
                     value={prodImgUrl}
-                    onChange={(e) => setProdImgUrl(e.target.value)}
+                    onChange={(e) => onValueChange(e)}
                     class="containers form-control"
                     id="floatingInput"
                     placeholder="Image Url"
@@ -82,7 +92,7 @@ const EditUser = () => {
                 <label for="floatingInput">Image URL</label>
             </div>
             <div className='form-floating'>
-                <button variant="contained" color="primary" onClick={() => editUserDetails()}>Edit User</button>
+                <button className='btn btn-info' style={{ left: "10rem", marginTop: "2rem" }} onClick={() => editUserDetails()}>Edit Product</button>
             </div>
         </div>
     )
