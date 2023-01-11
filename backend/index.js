@@ -4,7 +4,9 @@ import signup from "./routes/signup.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
+import { config } from "dotenv";
 
+config();
 mongoose.set('strictQuery', false);
 const url =
   "mongodb+srv://mubeen070:Tucky32145@cluster0.ytdjjmc.mongodb.net/?retryWrites=true&w=majority";
@@ -15,12 +17,11 @@ mongoose
 const app = express();
 app.listen(5000);
 
-app.use(bodyParser.json({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json({ limit: '50mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(cors({ origin: true, credentials: true }));
 
 app.use("/signup", signup);
 app.use("/products", products);
-
 
 console.log("Listening...");

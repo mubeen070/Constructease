@@ -3,7 +3,6 @@ import "../Style/cards.css"
 import { useState, useEffect } from "react";
 import ItemCard from "./itemcard.js";
 import { getproductData } from "../Service/api";
-import { useParams } from "react-router-dom";
 const Products = () => {
   const [productsData, setproductsData] = useState([]);
 

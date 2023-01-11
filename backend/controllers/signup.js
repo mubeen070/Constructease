@@ -1,42 +1,68 @@
 import userModel from "../models/userSchema.js";
-import express from 'express'
-
+import bcrypt from 'bcrypt';
 export const signup = async (req, res) => {
-    console.log("post api reached");
-    const result = req.body;
-    const uName = req.body.uName;
-    const nameTostring = uName.toString();
+    try {
 
-    const email = req.body.email;
-    const emailTostring = email.toString();
+        const name = req.body.uName;
+        const nametoString = name.toString();
 
-    const password = req.body.password;
-    const passTostring = password.toString();
+        const email = req.body.email;
+        const emailtoString = email.toString();
 
-    const contactNo = req.body.contactNo;
-    const contactTostring = contactNo.toString();
+        const password = req.body.password;
+        const passtoString = password.toString();
 
+        const contact = req.body.contactNo;
+        const contactToString = contact.toString();
 
-    const newUser = new userModel({
-        name: nameTostring,
-        email: emailTostring,
-        password: passTostring,
-        contactNo: contactTostring,
-    });
+        const profilePic = req.body.profilePic;
+        const picToString = profilePic.toString();
 
-    const userExist = await userModel.findOne({ email: email });
-    if (userExist) {
-        res.status(422).json({ error: "User Already found" });
+        const data = new userModel({
+            uName: nametoString,
+            email: emailtoString,
+            password: passtoString,
+            contactNo: contactToString,
+            profilePic: picToString
+        })
+        await data.save();
+        let myToken = await data.getAuthToken();
+        res.status(200).json({ message: "Success", token: myToken })
+    } catch (error) {
+        res.send(error.message)
     }
-    else {
-        try {
-            await newUser.save();
-            res.json(newUser);
-
-        } catch (error) {
-            res.send("Error registering new user!");
-
+}
+export const login = async (req, res) => {
+    if (!req.body.email || !req.body.password) {
+        res.status(301).json({ message: 'Error', message: "Please select email/password" });
+    }
+    let user = await userModel.findOne({ email: req.body.email });
+    var responseType = {
+        message: 'ok'
+    }
+    if (user) {
+        console.log(user.password)
+        var match = await bcrypt.compare(req.body.password, user.password)
+        if (match) {
+            responseType.message = "Login Successfully!"
+            responseType.token = "ok"
+        } else {
+            responseType.message = "invalid password!"
         }
+    } else {
+        responseType.message = "Invalid Email Id"
     }
+    console.log(user);
+    res.status(200).json({ message: "ok", data: responseType})
+
 
 }
+export const showUsers = async (req, res) => {
+    userModel.find((err, data) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(201).send(data);
+        }
+    });
+};

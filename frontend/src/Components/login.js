@@ -2,6 +2,7 @@ import "../Style/login.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode"
+import { UserContext } from "../Components/userContext";
 
 const CLIENT_ID = "1023609669270-pj8v0q07890tmuf412gjijllo1gfa9hl.apps.googleusercontent.com"
 const Login = () => {
@@ -15,6 +16,7 @@ const Login = () => {
     console.log("encoded jwt id token " + response.credential);
     const userObj = jwt_decode(response.credential);
     setuser(userObj);
+
     document.getElementById("loginContainer").hidden = true;
   }
 
@@ -23,7 +25,10 @@ const Login = () => {
     google.accounts.id.initialize({
       client_id: CLIENT_ID,
       callback: handlecallbackResponse,
-    })
+    });
+    {
+      <UserContext value={user}></UserContext>
+    }
     google.accounts.id.renderButton(
       document.getElementById("signIn"),
       { theme: "outline", size: "medium", borderRadius: "10px" }

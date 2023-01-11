@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getproductData, editProduct } from '../Service/api';
+import FileBase64 from 'react-file-base64';
 
 
 const initialValue = {
@@ -81,19 +82,9 @@ const EditUser = () => {
                 />
                 <label for="floatingInput">Price $</label>
             </div>
-            <div className="form-floating mb-1">
-                <input
-                    type="text"
-                    name="prodImgUrl"
-                    value={prodImgUrl}
-                    onChange={(e) => onValueChange(e)}
-                    class="containers form-control"
-                    id="floatingInput"
-                    placeholder="Image Url"
-                    required
-                />
-                <label for="floatingInput">Image URL</label>
-            </div>
+            <FileBase64
+                multiple={false}
+                onDone={({ base64 }) => setproductsData({ ...productsData, prodImgUrl: base64 })} />
             <div className='form-floating'>
                 <button className='btn btn-info' style={{ left: "10rem", marginTop: "2rem" }} onClick={() => editUserDetails()}>Edit Product</button>
             </div>

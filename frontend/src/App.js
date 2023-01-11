@@ -11,7 +11,8 @@ import Cart from "./Components/Cart";
 import "./Style/App.css";
 import Admin from "./Components/admin";
 import Products from "./Components/products";
-function App() {
+import { UserContext } from "./Components/userContext";
+function App(props) {
   return (
     <>
       <div className="app">
@@ -27,6 +28,7 @@ function App() {
                 <Route exact path="/signup" element={<SignUp />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/cart" element={<Cart />} />
+
                 <Route exact path="/adminview" element={<Admin />} />
                 <Route exact path="/edit/:id" element={<EditUser />} />
               </Routes>

@@ -13,6 +13,7 @@ const Cart = () => {
     removeItem,
     emptyCart,
   } = useCart();
+  
   if (isEmpty) return <h1 className="text-center text-dark">Empty Cart</h1>;
   return (
     <section className="container">
@@ -34,7 +35,7 @@ const Cart = () => {
               <th>Operations</th>
               {items.map((item, index) => {
                 return (
-                  <tr style={{padding: '3rem'}}>
+                  <tr style={{ padding: '3rem' }}>
                     <td>
                       <img
                         src={item.thumb}
@@ -79,7 +80,7 @@ const Cart = () => {
           </table>
         </div>
         <div className="center ms-2" >
-          <h4 style={{color:'black'}}>Total Price: {cartTotal}$</h4>
+          <h4 style={{ color: 'black' }}>Total Price: {cartTotal}$</h4>
         </div>
 
         <div className="center">

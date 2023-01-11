@@ -2,16 +2,17 @@ import "../Style/signupform.css";
 import React from "react";
 import { useState } from "react";
 import { signupData } from "../Service/api.js";
+import FileBase64 from 'react-file-base64';
 
 const SignUp = () => {
 
   const [userData, setuserData] = useState({
-    uName: "", email: "", password: "", contactNo: ""
+    uName: "", email: "", password: "", contactNo: "", profilePic: ""
   })
 
-  const { uName, email, password, contactNo } = userData;
+  const { uName, email, password, contactNo, profilePic } = userData;
 
-  const handleChange = (e) => {
+  const onValueChange = (e) => {
     setuserData({ ...userData, [e.target.name]: [e.target.value] })
     console.log(userData)
   };
@@ -19,12 +20,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       await signupData(userData)
-      .then(()=>{
-        setuserData({
-          uName: "", email: "", password: "", contactNo: ""
-        })
-        alert("Registration Successful!")
-      })
+      alert("Registration Successful!")
     }
     catch (err) {
       console.log(err);
@@ -43,7 +39,7 @@ const SignUp = () => {
             <div className="form-floating mb-1">
               <input
                 type="text"
-                onChange={handleChange}
+                onChange={(e) => onValueChange(e)}
                 value={uName}
                 name="uName"
                 class="containers form-control"
@@ -57,7 +53,7 @@ const SignUp = () => {
             <div className="form-floating mb-1">
               <input
                 type="email"
-                onChange={handleChange}
+                onChange={(e) => onValueChange(e)}
                 value={email}
                 name="email"
                 className="containers form-control"
@@ -70,7 +66,7 @@ const SignUp = () => {
             <div className="form-floating mb-1">
               <input
                 type="password"
-                onChange={handleChange}
+                onChange={(e) => onValueChange(e)}
                 value={password}
                 name="password"
                 className="containers form-control"
@@ -85,7 +81,7 @@ const SignUp = () => {
             <div className="form-floating mb-1">
               <input
                 type="tel"
-                onChange={handleChange}
+                onChange={(e) => onValueChange(e)}
                 value={contactNo}
                 name="contactNo"
                 className="containers form-control"
@@ -95,6 +91,9 @@ const SignUp = () => {
               />
               <label for="floatingInput">Contact Number</label>
             </div>
+            <FileBase64
+              multiple={false}
+              onDone={({ base64 }) => setuserData({ ...userData, profilePic: base64 })} />
             <div
               className="d5 d-flex justify-content-center pb-4"
               style={{ color: "black" }}
