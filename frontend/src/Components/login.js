@@ -1,12 +1,13 @@
 import "../Style/login.css";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useCallback, useEffect } from 'react';
 import jwt_decode from "jwt-decode"
-import { UserContext } from "../Components/userContext";
+import { loginData } from '../Service/api'
+import { useNavigate } from "react-router-dom";
 
 const CLIENT_ID = "1023609669270-pj8v0q07890tmuf412gjijllo1gfa9hl.apps.googleusercontent.com"
 const Login = () => {
-
+  const navigate = useNavigate();
   const [user, setuser] = useState({
     email: "", password: ""
   });
@@ -16,7 +17,6 @@ const Login = () => {
     console.log("encoded jwt id token " + response.credential);
     const userObj = jwt_decode(response.credential);
     setuser(userObj);
-
     document.getElementById("loginContainer").hidden = true;
   }
 
@@ -26,9 +26,7 @@ const Login = () => {
       client_id: CLIENT_ID,
       callback: handlecallbackResponse,
     });
-    {
-      <UserContext value={user}></UserContext>
-    }
+
     google.accounts.id.renderButton(
       document.getElementById("signIn"),
       { theme: "outline", size: "medium", borderRadius: "10px" }
@@ -40,19 +38,22 @@ const Login = () => {
     setuser({});
     document.getElementById("loginContainer").hidden = false;
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("Submitted.");
+    try {
+      await loginData(user)
+    }
+    catch (err) {
+      console.log(err);
+      alert("Login Failed!")
+    }
   };
-
-  const handleChange = (e) => {
-    setuser({ ...user, [e.target.name]: [e.target.value] })
-    console.log(user)
-  };
+  const onValueChange = (e) => {
+    setuser({ ...user, [e.target.name]: e.target.value })
+  }
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row justify-content-center align-items-center">
         <div className="col-lg-5 col-md-6 col-sm-3">
           <form onSubmit={handleSubmit} id="loginContainer">
@@ -63,7 +64,7 @@ const Login = () => {
                 type="email"
                 value={email}
                 name="email"
-                onChange={handleChange}
+                onChange={(e) => onValueChange(e)}
                 className="containers form-control"
                 id="floatingPassword"
                 placeholder="Email"
@@ -76,7 +77,7 @@ const Login = () => {
                 type="password"
                 value={password}
                 name="password"
-                onChange={handleChange}
+                onChange={(e) => onValueChange(e)}
                 className="containers form-control"
                 id="floatingPassword"
                 placeholder="Password"
@@ -94,8 +95,8 @@ const Login = () => {
               Forgot <a href="/">password?</a>
             </p>
             <div className="d-flex justify-content-center">
-              <button className="btn btn-primary btn-sm mx-2" type="submit" style={{ height: "33px" }}>
-                Login
+              <button className="btn btn-primary btn-sm mx-2" type="submit" style={{ height: "33px" }} onSubmit={handleSubmit}>
+                Login <i class="bi bi-box-arrow-in-right"></i>
               </button>
 
               <div id="signIn" ></div>
@@ -108,7 +109,6 @@ const Login = () => {
               user &&
               <div className="pt-5" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <img src={user.picture} alt="profile"></img>
-                <h3>{user.email}</h3>
               </div>
             }
             {

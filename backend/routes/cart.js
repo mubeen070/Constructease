@@ -1,8 +1,12 @@
 import express from "express";
-import { cart } from "../controllers/cart.js";
+import { postCartProducts, showCart, deleteCartProd, getcartProdbyId } from "../controllers/cart.js";
 const router = express.Router();
 
-//requested by customer
-router.get("/cart", cart)
+
+router.post("/", postCartProducts);
+router.get("/", showCart);
+router.get('/:id', getcartProdbyId);
+router.delete("/:id", deleteCartProd);
+
 
 export default router;

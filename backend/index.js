@@ -3,6 +3,7 @@ import products from "./routes/products.js";
 import signup from "./routes/signup.js";
 import bodyParser from "body-parser";
 import cors from "cors";
+import cart from "./routes/cart.js"
 import mongoose from "mongoose";
 import { config } from "dotenv";
 
@@ -21,7 +22,9 @@ app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(cors({ origin: true, credentials: true }));
 
-app.use("/signup", signup);
+app.use("/users", signup);
 app.use("/products", products);
+app.use("/cart", cart);
+
 
 console.log("Listening...");

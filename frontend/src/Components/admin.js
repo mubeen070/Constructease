@@ -3,7 +3,7 @@ import "../Style/admin.css";
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import FileBase64 from 'react-file-base64';
-import { deleteProductData, getproductData, getSignupData, productData } from "../Service/api.js";
+import { deleteProductData, getproductData, getSignupData, productData, deleteUser } from "../Service/api.js";
 
 const initialValue = {
   prodName: '',
@@ -77,6 +77,18 @@ const Admin = () => {
           .then(() => alert("Product deleted successfully!"));
       }
       getproductDetails();
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  const handleDeleteUser = async (id) => {
+    try {
+      if (window.confirm("Are you sure?") === true) {
+        await deleteUser(id)
+          .then(() => alert("Product deleted successfully!"));
+      }
+      getUserDetails();
     } catch (error) {
       console.log(error.message);
     }
@@ -171,6 +183,7 @@ const Admin = () => {
                 <FileBase64
                   multiple={false}
                   onDone={({ base64 }) => setProduct({ ...product, prodImgUrl: base64 })} />
+
                 <button className="btn btn-primary my-4" style={{ left: "16rem" }} onClick={handleSubmit}>Add</button>
                 <button className="btn btn-primary" style={{ left: "6rem", bottom: "3.7rem" }} onClick={() => closeComp()}>Close</button>
               </div>
@@ -178,7 +191,7 @@ const Admin = () => {
             </form>
           </div>
         </div>
-        <div className="">
+        <div className="col-lg-12 col-sm-12">
           <div className="container">
             <h1 className="title">Manage Users</h1>
             <table className="table" >
@@ -198,8 +211,8 @@ const Admin = () => {
                       <td>{details.contactNo}</td>
                       <td><img src={details.profilePic} alt="Product"></img></td>
                       <td>
-                        <i class="bi bi-trash" onClick={() => handleDelete(details._id)}>Delete</i>
-                        <Link to={`/edit/${details._id}`}>
+                        <i class="bi bi-trash" onClick={() => handleDeleteUser(details._id)}>Delete</i>
+                        <Link to={`/edituser/${details._id}`}>
                           <i class="bi bi-pencil-square">Update</i>
                         </Link>
                       </td>

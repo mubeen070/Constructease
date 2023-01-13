@@ -6,7 +6,6 @@ body{
   position: relative;
   left: 0;
   bottom: 0;
-  width: 100%;
 }
 .container{
 	max-width: 1170px;
@@ -52,6 +51,6 @@ body{
 }
 @media(max-width: 574px){
   .footer-col{
-    width: 100%;
+    width: 100vw;
 }
 }

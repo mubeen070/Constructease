@@ -19,6 +19,7 @@ export const getProdbyId = async (request, response) => {
     }
 }
 
+
 export const products = async (req, res) => {
     try {
         const productDetails = req.body;
@@ -39,7 +40,7 @@ export const deleteProd = async (request, response) => {
     }
 }
 
-export const editUser = async (request, response) => {
+export const editProd = async (request, response) => {
     let user = request.body;
     const editUser = new product(user);
     try {

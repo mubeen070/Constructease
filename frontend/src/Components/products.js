@@ -22,7 +22,6 @@ const Products = () => {
   return (
     <div className="container">
       <h1 className="text-dark">Equipments</h1>
-
       <div className="row" style={{ padding: "0", margin: "0" }}>
         <div className="cardPos" >
           {productsData.map((item, index) => (

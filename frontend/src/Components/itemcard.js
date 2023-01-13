@@ -1,9 +1,23 @@
 import React from "react";
 import "../Style/cards.css";
-import { useCart } from "react-use-cart";
+// import { useCart } from "react-use-cart";
+import { postCartData } from '../Service/api'
 
 const ItemCard = (props) => {
-  const { addItem } = useCart();
+
+  const addItem = async (e) => {
+    e.preventDefault();
+    console.log(props.item)
+    try {
+      await postCartData(props.item)
+        .then(() => {
+          alert("Product added successfully into the cart!");
+        })
+    } catch (err) {
+      console.log(err.message)
+      alert("Product addition failed!");
+    }
+  }
   return (
     <div className="card" style={{ margin: "0", padding: "0" }} key={props.id}>
       <div className="cardd-img">
@@ -19,7 +33,7 @@ const ItemCard = (props) => {
         <button
           className="btn"
           style={{ color: "lightgray" }}
-          onClick={() => addItem(props.id)}
+          onClick={addItem}
         >
           Add to cart
         </button>

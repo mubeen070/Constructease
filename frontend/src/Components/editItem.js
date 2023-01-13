@@ -11,7 +11,7 @@ const initialValue = {
     prodImgUrl: ''
 }
 
-const EditUser = () => {
+const EditItem = () => {
 
     const [productsData, setproductsData] = useState(initialValue);
     const { prodName, prodDesc, prodPrice, prodImgUrl } = productsData;
@@ -33,7 +33,7 @@ const EditUser = () => {
     }
 
 
-    const editUserDetails = async () => {
+    const editProdDetails = async () => {
         await editProduct(id, productsData)
             .then(() => {
                 alert("Success!")
@@ -86,10 +86,10 @@ const EditUser = () => {
                 multiple={false}
                 onDone={({ base64 }) => setproductsData({ ...productsData, prodImgUrl: base64 })} />
             <div className='form-floating'>
-                <button className='btn btn-info' style={{ left: "10rem", marginTop: "2rem" }} onClick={() => editUserDetails()}>Edit Product</button>
+                <button className='btn btn-info' style={{ left: "10rem", marginTop: "2rem" }} onClick={() => editProdDetails()}>Edit Product</button>
             </div>
         </div>
     )
 }
 
-export default EditUser;
+export default EditItem;

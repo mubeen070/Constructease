@@ -22,13 +22,14 @@ const NavBar = () => {
         <Link className="align-right" to="/cart">
           <i class="bi bi-cart"></i>Cart
         </Link>
-        <Link className="align-right" to="/signup">
-          Sign up!
+        <Link to="/adminview">Admin Side</Link>
+        <Link to="/signup">
+          Sign up
         </Link>
-        <Link className="align-right" to="/login">
+        <Link to="/login">
           Login
         </Link>
-        <Link to="/adminview">Admin Side</Link>
+        {/* <Link to="/profile">Profile</Link> */}
         <button className="nav-btn nav-close-btn" onClick={showNavbar}>
           <FaTimes />
         </button>
